@@ -1,0 +1,58 @@
+import React, { Component } from 'react'
+import './tour.scss'
+
+
+export default class Tour extends Component {
+    state = {
+        showInfo: false,
+        deleteInfo:false
+      };
+      handleInfo = () => {
+        this.setState({
+          showInfo: !this.state.showInfo
+        });
+      };
+
+      deleteInfo=()=>{
+          this.setState({
+              deleteInfo: !this.state.deleteInfo
+          });
+      }
+      render() {
+        const { id, city, img, name, info } = this.props.tour;
+        const { removeTour } = this.props;
+        console.log(this.props.tour)
+    
+        return (
+          <article className="tour">
+            <div className="img-container">
+              <img src={img} alt="image of the tour" />
+              <span className="close-btn" onClick={()=>removeTour(id)}>
+                <i className="fas fa-window-close" />
+              </span>
+            </div>
+            <div className="tour-info">
+              <h3>{city}</h3>
+              <h4>{name}</h4>
+              <h5>
+              info{" "}
+                <span onClick={this.handleInfo}>
+                  <i className="fas fa-caret-square-down" />
+                </span>
+              </h5>
+              <h5>
+            
+
+              {this.state.showInfo && <p>{info}</p>}
+          
+              delete{" "}
+                <span onClick={this.deleteInfo}>
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                </span>
+              </h5>
+              {this.state.deleteInfo && <p>{name}</p>}
+            </div>
+          </article>
+        );
+      }
+    }
